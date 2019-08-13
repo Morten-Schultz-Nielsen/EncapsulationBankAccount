@@ -15,19 +15,17 @@ namespace EncapsulationBankAccount.Entities.Tests
             Assert.IsTrue(testAccount.Created > DateTime.Now - new TimeSpan(0,0,60));
             Assert.AreEqual(100, testAccount.Balance);
 
-            testAccount = new Account(1,50.10m, new DateTime(2019,4,4));
+            testAccount = new Account(1,50.10m, new DateTime(2019, 4, 4));
             Assert.AreEqual(1, testAccount.Id);
-            Assert.IsTrue(testAccount.Created > new DateTime(2019, 4, 4));
+            Assert.IsTrue(testAccount.Created == new DateTime(2019, 4, 4));
             Assert.AreEqual(50.10m, testAccount.Balance);
         }
 
         [TestMethod]
         public void TestId()
         {
-            Assert.IsTrue(Account.ValidateId(0).Valid);
-            Assert.IsFalse(Account.ValidateId(-1).Valid);
-
-            Assert.ThrowsException<ArgumentException>(() => { Account testAccount = new Account(0,0,DateTime.Now); });
+            Assert.IsTrue(Account.ValidateId(1).Valid);
+            Assert.IsFalse(Account.ValidateId(0).Valid);
         }
 
         [TestMethod]
