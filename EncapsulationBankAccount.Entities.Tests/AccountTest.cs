@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EncapsulationBankAccount.Entities;
 
-namespace EncapsulationBankAccount.Entities.Tests
+namespace EncapsulationBankAccount.EntitiesTests
 {
     [TestClass]
     public class AccountTest

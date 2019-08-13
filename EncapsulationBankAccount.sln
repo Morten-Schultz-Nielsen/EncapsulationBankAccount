@@ -5,7 +5,11 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncapsulationBankAccount.Entities", "EncapsulationBankAccount.Entities\EncapsulationBankAccount.Entities.csproj", "{18EC42E6-B94D-4075-8E6A-D3555FFDD666}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncapsulationBankAccount.Entities.Tests", "EncapsulationBankAccount.Entities.Tests\EncapsulationBankAccount.Entities.Tests.csproj", "{3432CD29-3AC3-4A6F-955F-25497BBA916B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncapsulationBankAccount.EntitiesTests", "EncapsulationBankAccount.Entities.Tests\EncapsulationBankAccount.EntitiesTests.csproj", "{3432CD29-3AC3-4A6F-955F-25497BBA916B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncapsulationBankAccount.DataAccess", "EncapsulationBankAccount.DataAccess\EncapsulationBankAccount.DataAccess.csproj", "{1623CF00-DCE4-4FD1-AA35-93C423BA38D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncapsulationBankAccount.DataAccessTests", "EncapsulationBankAccount.DataAccessTests\EncapsulationBankAccount.DataAccessTests.csproj", "{F5630B32-F7E6-424E-B0AB-1EDF175F9D1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{3432CD29-3AC3-4A6F-955F-25497BBA916B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3432CD29-3AC3-4A6F-955F-25497BBA916B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3432CD29-3AC3-4A6F-955F-25497BBA916B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1623CF00-DCE4-4FD1-AA35-93C423BA38D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1623CF00-DCE4-4FD1-AA35-93C423BA38D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1623CF00-DCE4-4FD1-AA35-93C423BA38D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1623CF00-DCE4-4FD1-AA35-93C423BA38D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5630B32-F7E6-424E-B0AB-1EDF175F9D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5630B32-F7E6-424E-B0AB-1EDF175F9D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5630B32-F7E6-424E-B0AB-1EDF175F9D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5630B32-F7E6-424E-B0AB-1EDF175F9D1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
