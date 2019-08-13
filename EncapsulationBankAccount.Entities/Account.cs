@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace EncapsulationBankAccount.Entities
 {
+    /// <summary>
+    /// An object used to describe a bank account
+    /// </summary>
     public class Account
     {
         private int id;
         private decimal balance;
         private DateTime created;
 
+        /// <summary>
+        /// Initializes a new <see cref="Account"/> object with the given starting balance
+        /// </summary>
+        /// <param name="initalBalance">The balance the account has from the start</param>
         public Account(decimal initalBalance)
         {
             Balance = initalBalance;
@@ -19,6 +26,12 @@ namespace EncapsulationBankAccount.Entities
             Created = DateTime.Now;
         }
 
+        /// <summary>
+        /// Initializes a new <see cref="Account"/> object with data from an existing account
+        /// </summary>
+        /// <param name="id">The ID of this account</param>
+        /// <param name="balance">The balance this account has</param>
+        /// <param name="created">The time this account was created</param>
         public Account(int id, decimal balance, DateTime created)
         {
             Balance = balance;
@@ -26,6 +39,12 @@ namespace EncapsulationBankAccount.Entities
             Created = created;
         }
 
+        /// <summary>
+        /// The ID of this account
+        /// </summary>
+        /// <remarks>
+        /// Is 0 if the account hasn't gotten an ID yet.
+        /// </remarks>
         public int Id
         {
             get
@@ -45,6 +64,9 @@ namespace EncapsulationBankAccount.Entities
             }
         }
 
+        /// <summary>
+        /// The balance of this account
+        /// </summary>
         public decimal Balance
         {
             get
@@ -64,6 +86,9 @@ namespace EncapsulationBankAccount.Entities
             }
         }
 
+        /// <summary>
+        /// The time this account was created
+        /// </summary>
         public DateTime Created
         {
             get
@@ -83,6 +108,11 @@ namespace EncapsulationBankAccount.Entities
             }
         }
 
+        /// <summary>
+        /// Withdraws the given amount of money from this account
+        /// </summary>
+        /// <param name="amount">The account of money to withdraw</param>
+        /// <exception cref="ArgumentException"></exception>
         public void Withdraw(decimal amount)
         {
             if(amount < 0 || amount > 25000)
@@ -93,6 +123,11 @@ namespace EncapsulationBankAccount.Entities
             Balance -= amount;
         }
 
+        /// <summary>
+        /// Deposits the given amount of money into this account
+        /// </summary>
+        /// <param name="amount">The amount of money to deposit</param>
+        /// <exception cref="ArgumentException"></exception>
         public void Deposit(decimal amount)
         {
             if(amount < 0 || amount > 25000)
@@ -103,12 +138,21 @@ namespace EncapsulationBankAccount.Entities
             Balance += amount;
         }
 
+        /// <summary>
+        /// Returns the amount of days since this account was created
+        /// </summary>
+        /// <returns>The amount of days since this account was created</returns>
         public int GetDaysSinceCreation()
         {
             DateTime exactCreationDay = new DateTime(Created.Year, Created.Month, Created.Day);
             return (DateTime.Now - exactCreationDay).Days;
         }
 
+        /// <summary>
+        /// Validates the given ID.
+        /// </summary>
+        /// <param name="id">the ID to validate</param>
+        /// <returns>A tuple with a bool which is true if valid and a string containing the error message if invalid</returns>
         public static (bool Valid, string ErrorMessage) ValidateId(int id)
         {
             if(id <= 0)
@@ -119,6 +163,11 @@ namespace EncapsulationBankAccount.Entities
             return (true, string.Empty);
         }
 
+        /// <summary>
+        /// Validates the given balance amount
+        /// </summary>
+        /// <param name="balance">The balance to validate</param>
+        /// <returns>A tuple with a bool which is true if valid and a string containing the error message if invalid</returns>
         public static (bool Valid, string ErrorMessage) ValidateBalance(decimal balance)
         {
             if(balance > 999999999.99m)
@@ -133,6 +182,11 @@ namespace EncapsulationBankAccount.Entities
             return (true, string.Empty);
         }
 
+        /// <summary>
+        /// Validates the given creation date
+        /// </summary>
+        /// <param name="created">The date to validate</param>
+        /// <returns>A tuple with a bool which is true if valid and a string containing the error message if invalid</returns>
         public static (bool Valid, string ErrorMessage) ValidateCreated(DateTime created)
         {
             if(created > DateTime.Now)
