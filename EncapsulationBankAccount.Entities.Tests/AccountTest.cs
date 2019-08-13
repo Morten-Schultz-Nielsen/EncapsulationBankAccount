@@ -10,7 +10,43 @@ namespace EncapsulationBankAccount.Entities.Tests
         [TestMethod]
         public void TestAccount()
         {
+            Assert.Fail();
+        }
 
+        [TestMethod]
+        public void TestId()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void TestBalance()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void TestCreated()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void TestWithdraw()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void TestDeposit()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod]
+        public void TestGetDaysSinceCreation()
+        {
+            Assert.Fail();
         }
     }
 }
