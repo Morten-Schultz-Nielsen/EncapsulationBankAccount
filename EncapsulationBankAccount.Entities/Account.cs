@@ -39,6 +39,7 @@ namespace EncapsulationBankAccount.Entities
             Created = created;
         }
 
+        #region properties
         /// <summary>
         /// The ID of this account
         /// </summary>
@@ -107,7 +108,9 @@ namespace EncapsulationBankAccount.Entities
                 created = value;
             }
         }
+        #endregion
 
+        #region methods
         /// <summary>
         /// Withdraws the given amount of money from this account
         /// </summary>
@@ -147,7 +150,9 @@ namespace EncapsulationBankAccount.Entities
             DateTime exactCreationDay = new DateTime(Created.Year, Created.Month, Created.Day);
             return (DateTime.Now - exactCreationDay).Days;
         }
+        #endregion
 
+        #region static validation methods
         /// <summary>
         /// Validates the given ID.
         /// </summary>
@@ -195,5 +200,6 @@ namespace EncapsulationBankAccount.Entities
             }
             return (true, string.Empty);
         }
+        #endregion
     }
 }
