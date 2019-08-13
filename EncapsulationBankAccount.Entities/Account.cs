@@ -68,7 +68,7 @@ namespace EncapsulationBankAccount.Entities
 
         }
 
-        public void Deposit(decimal balance)
+        public void Deposit(decimal amount)
         {
 
         }
