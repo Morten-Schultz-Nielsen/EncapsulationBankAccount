@@ -119,7 +119,7 @@ namespace EncapsulationBankAccount.Entities
         /// </summary>
         /// <param name="amount">The account of money to withdraw</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void Withdraw(decimal amount)
+        public Transaction Withdraw(decimal amount)
         {
             if(!Validation.ValidateTransaction(amount).Valid)
             {
@@ -127,6 +127,7 @@ namespace EncapsulationBankAccount.Entities
             }
 
             Balance -= amount;
+            return new Transaction(amount, Id, true);
         }
 
         /// <summary>
@@ -134,7 +135,7 @@ namespace EncapsulationBankAccount.Entities
         /// </summary>
         /// <param name="amount">The amount of money to deposit</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void Deposit(decimal amount)
+        public Transaction Deposit(decimal amount)
         {
             if(!Validation.ValidateTransaction(amount).Valid)
             {
@@ -142,6 +143,7 @@ namespace EncapsulationBankAccount.Entities
             }
 
             Balance += amount;
+            return new Transaction(amount, Id, false);
         }
 
         /// <summary>
