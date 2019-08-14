@@ -57,15 +57,10 @@ namespace EncapsulationBankAccount.EntitiesTests
             //Test withdraw higher bound
             testAccount.Withdraw(25000);
             Assert.AreEqual(-25000, testAccount.Balance);
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Withdraw(25000.01m); });
 
             //Test withdrawing twice
-            testAccount.Withdraw(1);
-            Assert.AreEqual(-25001, testAccount.Balance);
-
-            //Test withdraw lower bound
-            testAccount.Withdraw(0);
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Withdraw(-0.01m); });
+            testAccount.Withdraw(10.10m);
+            Assert.AreEqual(-25010.10m, testAccount.Balance);
         }
 
         [TestMethod]
@@ -76,15 +71,19 @@ namespace EncapsulationBankAccount.EntitiesTests
             //Test deposit higher bound
             testAccount.Deposit(25000);
             Assert.AreEqual(25000, testAccount.Balance);
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Deposit(25000.01m); });
 
             //test deposit twice
-            testAccount.Deposit(1);
-            Assert.AreEqual(25001, testAccount.Balance);
+            testAccount.Deposit(10.10m);
+            Assert.AreEqual(25010.10m, testAccount.Balance);
+        }
 
-            //Test deposit lower bound
-            testAccount.Deposit(0);
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Deposit(-0.01m); });
+        [TestMethod]
+        public void TestValidateTransaction()
+        {
+            Assert.IsTrue(Account.ValidateTransaction(0).Valid);
+            Assert.IsTrue(Account.ValidateTransaction(25000).Valid);
+            Assert.IsFalse(Account.ValidateTransaction(-0.01m).Valid);
+            Assert.IsFalse(Account.ValidateTransaction(25000.01m).Valid);
         }
 
         [TestMethod]

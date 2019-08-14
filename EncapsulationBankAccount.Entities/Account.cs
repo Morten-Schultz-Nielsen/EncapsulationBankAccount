@@ -121,7 +121,7 @@ namespace EncapsulationBankAccount.Entities
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void Withdraw(decimal amount)
         {
-            if(amount < 0 || amount > 25000)
+            if(!ValidateTransaction(amount).Valid)
             {
                 throw new ArgumentOutOfRangeException("Amount has to be between 0 and 25000.", nameof(amount));
             }
@@ -136,7 +136,7 @@ namespace EncapsulationBankAccount.Entities
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void Deposit(decimal amount)
         {
-            if(amount < 0 || amount > 25000)
+            if(!ValidateTransaction(amount).Valid)
             {
                 throw new ArgumentOutOfRangeException("Amount has to be between 0 and 25000.", nameof(amount));
             }
@@ -180,11 +180,11 @@ namespace EncapsulationBankAccount.Entities
         {
             if(balance > 999999999.99m)
             {
-                return (false, "Saldoen er større end det tilladte.");
+                return (false, "Saldoen er større end det 999.999.999,99.");
             }
             if(balance < -999999999.99m)
             {
-                return (false, "Saldoen er mindre end det tilladte.");
+                return (false, "Saldoen er mindre end det -999.999.999,99.");
             }
 
             return (true, string.Empty);
@@ -201,6 +201,20 @@ namespace EncapsulationBankAccount.Entities
             {
                 return (false, "Creation date cannot be in the future");
             }
+            return (true, string.Empty);
+        }
+
+        public static (bool Valid, string ErrorMessage) ValidateTransaction(decimal amount)
+        {
+            if(amount > 25000)
+            {
+                return (false, "Transaktionen må ikke være større end 25000");
+            }
+            if(amount < 0)
+            {
+                return (false, "Transaktionen må ikke være mindre end 25000");
+            }
+
             return (true, string.Empty);
         }
         #endregion
