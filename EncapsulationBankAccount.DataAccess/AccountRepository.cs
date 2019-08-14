@@ -15,12 +15,6 @@ namespace EncapsulationBankAccount.DataAccess
     public class AccountRepository : RepositoryBase
     {
         /// <summary>
-        /// Initializes a new account repository with the correct connection string
-        /// </summary>
-        public AccountRepository() : base() { }
-
-
-        /// <summary>
         /// Inserts the new <see cref="Account"/> into the database and gives it an ID
         /// </summary>
         /// <param name="account">The <see cref="Account"/> to insert</param>
@@ -34,7 +28,7 @@ namespace EncapsulationBankAccount.DataAccess
             }
             if(account.Id != 0)
             {
-                throw new ArgumentException(nameof(account), "Already existing account cannot be insrted");
+                throw new ArgumentException(nameof(account), "Already existing account cannot be inserted");
             }
 
             SqlCommand insertCommand = new SqlCommand("INSERT INTO Accounts (Balance, Created) OUTPUT INSERTED.Id VALUES (@Balance, @Created)");

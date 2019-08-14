@@ -8,10 +8,16 @@ using System.Data.SqlClient;
 
 namespace EncapsulationBankAccount.DataAccess
 {
+    /// <summary>
+    /// The base of a repository
+    /// </summary>
     public class RepositoryBase
     {
         private readonly string connectionString;
 
+        /// <summary>
+        /// Initializes a new repository with the correct connection string
+        /// </summary>
         public RepositoryBase()
         {
             connectionString = GetConnectionString();

@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountRepository.cs" />
-    <Compile Include="LoggerRepository.cs" />
+    <Compile Include="TransactionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryBase.cs" />
   </ItemGroup>
