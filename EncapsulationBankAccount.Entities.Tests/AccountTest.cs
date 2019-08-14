@@ -28,10 +28,15 @@ namespace EncapsulationBankAccount.EntitiesTests
         public void TestBalance()
         {
             //Tests if balance only can be in the interval [-999999999,99;999999999,99]
+            //test validation
             Assert.IsTrue(Account.ValidateBalance(999999999.99m).Valid);
             Assert.IsFalse(Account.ValidateBalance(999999999.999m).Valid);
             Assert.IsTrue(Account.ValidateBalance(-999999999.99m).Valid);
             Assert.IsFalse(Account.ValidateBalance(-999999999.999m).Valid);
+
+            //test property
+            Account testAccount = new Account(1, 50.10m, new DateTime(2019, 4, 4));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Balance = -999999999.999m; });
         }
 
         [TestMethod]
@@ -46,6 +51,10 @@ namespace EncapsulationBankAccount.EntitiesTests
             //Test withdrawing twice
             testAccount.Withdraw(10.10m);
             Assert.AreEqual(-25010.10m, testAccount.Balance);
+
+            //test exceptions
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Withdraw(-1); });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Withdraw(25001); });
         }
 
         [TestMethod]
@@ -60,6 +69,10 @@ namespace EncapsulationBankAccount.EntitiesTests
             //test deposit twice
             testAccount.Deposit(10.10m);
             Assert.AreEqual(25010.10m, testAccount.Balance);
+
+            //test exceptions
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Deposit(-1); });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Deposit(25001); });
         }
 
         [TestMethod]
@@ -73,6 +86,23 @@ namespace EncapsulationBankAccount.EntitiesTests
             DateTime daysLater = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day - 5);
             testAccount.Created = daysLater;
             Assert.AreEqual(5, testAccount.GetDaysSinceCreation());
+
+            //test exception
+            Assert.ThrowsException<ArgumentException>(() => { testAccount.Created = DateTime.Now + new TimeSpan(0, 0, 1); });
+        }
+
+        [TestMethod]
+        public void TestCreated()
+        {
+            Account testAccount = new Account(1, 100, DateTime.Now);
+            Assert.ThrowsException<ArgumentException>(() => { testAccount.Created = DateTime.Now + new TimeSpan(0, 0, 1); });
+        }
+
+        [TestMethod]
+        public void TestId()
+        {
+            Account testAccount = new Account(1, 100, DateTime.Now);
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Id = 0; });
         }
     }
 }

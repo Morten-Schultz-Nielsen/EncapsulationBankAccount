@@ -14,7 +14,7 @@ namespace EncapsulationBankAccount.Entities
         private decimal money;
         private int accountId;
         private bool withdraw;
-        private readonly DateTime transactionTime;
+        private DateTime transactionTime;
         private int id;
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace EncapsulationBankAccount.Entities
         /// <param name="money">The amount of money in the transaction</param>
         /// <param name="accountId">The ID of the account who made the transaction</param>
         /// <param name="Withdraw">True if the transaction is a withdraw, false if it's a deposite</param>
-        public Transaction(decimal money, int accountId, bool Withdraw)
+        public Transaction(decimal money, int accountId, bool withdraw)
         {
             Money = money;
             AccountId = accountId;
@@ -39,7 +39,7 @@ namespace EncapsulationBankAccount.Entities
         /// <param name="accountId">The ID of the account who made the transaction</param>
         /// <param name="Withdraw">True if the transaction is a withdraw, false if it's a deposite</param>
         /// <param name="transactionTime">The point in time the transaction was made</param>
-        public Transaction(int id, decimal money, int accountId, bool Withdraw, DateTime transactionTime)
+        public Transaction(int id, decimal money, int accountId, bool withdraw, DateTime transactionTime)
         {
             Money = money;
             AccountId = accountId;
@@ -115,12 +115,12 @@ namespace EncapsulationBankAccount.Entities
             }
             private set
             {
-                if(DateTime.Now.Ticks - value.Ticks > -10000)
+                if(!Validation.ValidateCreated(value).Valid)
                 {
                     throw new ArgumentException("Transaction time cannot be in the future", nameof(TransactionTime));
                 }
 
-                TransactionTime = value;
+                transactionTime = value;
             }
         }
 
