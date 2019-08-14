@@ -19,7 +19,7 @@ namespace EncapsulationBankAccount.EntitiesTests
             //Test creation of an existing account
             testAccount = new Account(1,50.10m, new DateTime(2019, 4, 4));
             Assert.AreEqual(1, testAccount.Id);
-            Assert.IsTrue(testAccount.Created == new DateTime(2019, 4, 4));
+            Assert.AreEqual(new DateTime(2019, 4, 4), testAccount.Created);
             Assert.AreEqual(50.10m, testAccount.Balance);
         }
 
@@ -57,7 +57,7 @@ namespace EncapsulationBankAccount.EntitiesTests
             //Test withdraw higher bound
             testAccount.Withdraw(25000);
             Assert.AreEqual(-25000, testAccount.Balance);
-            Assert.ThrowsException<ArgumentException>(() => { testAccount.Withdraw(25000.01m); });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Withdraw(25000.01m); });
 
             //Test withdrawing twice
             testAccount.Withdraw(1);
@@ -65,7 +65,7 @@ namespace EncapsulationBankAccount.EntitiesTests
 
             //Test withdraw lower bound
             testAccount.Withdraw(0);
-            Assert.ThrowsException<ArgumentException>(() => { testAccount.Withdraw(-0.01m); });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Withdraw(-0.01m); });
         }
 
         [TestMethod]
@@ -76,7 +76,7 @@ namespace EncapsulationBankAccount.EntitiesTests
             //Test deposit higher bound
             testAccount.Deposit(25000);
             Assert.AreEqual(25000, testAccount.Balance);
-            Assert.ThrowsException<ArgumentException>(() => { testAccount.Deposit(25000.01m); });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Deposit(25000.01m); });
 
             //test deposit twice
             testAccount.Deposit(1);
@@ -84,7 +84,7 @@ namespace EncapsulationBankAccount.EntitiesTests
 
             //Test deposit lower bound
             testAccount.Deposit(0);
-            Assert.ThrowsException<ArgumentException>(() => { testAccount.Deposit(-0.01m); });
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => { testAccount.Deposit(-0.01m); });
         }
 
         [TestMethod]

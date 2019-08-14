@@ -46,6 +46,7 @@ namespace EncapsulationBankAccount.Entities
         /// <remarks>
         /// Is 0 if the account hasn't gotten an ID yet.
         /// </remarks>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public int Id
         {
             get
@@ -58,7 +59,7 @@ namespace EncapsulationBankAccount.Entities
                 (bool Valid, string ErrorMessage) = ValidateId(value);
                 if (!Valid)
                 {
-                    throw new ArgumentException(ErrorMessage, nameof(Id));
+                    throw new ArgumentOutOfRangeException(ErrorMessage, nameof(Id));
                 }
 
                 id = value;
@@ -68,6 +69,7 @@ namespace EncapsulationBankAccount.Entities
         /// <summary>
         /// The balance of this account
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public decimal Balance
         {
             get
@@ -80,7 +82,7 @@ namespace EncapsulationBankAccount.Entities
                 (bool Valid, string ErrorMessage) = ValidateBalance(value);
                 if(!Valid)
                 {
-                    throw new ArgumentException(ErrorMessage, nameof(Balance));
+                    throw new ArgumentOutOfRangeException(ErrorMessage, nameof(Balance));
                 }
 
                 balance = value;
@@ -90,6 +92,7 @@ namespace EncapsulationBankAccount.Entities
         /// <summary>
         /// The time this account was created
         /// </summary>
+        /// <exception cref="ArgumentException"></exception>
         public DateTime Created
         {
             get
@@ -115,12 +118,12 @@ namespace EncapsulationBankAccount.Entities
         /// Withdraws the given amount of money from this account
         /// </summary>
         /// <param name="amount">The account of money to withdraw</param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void Withdraw(decimal amount)
         {
             if(amount < 0 || amount > 25000)
             {
-                throw new ArgumentException("Amount has to be between 0 and 25000.", nameof(amount));
+                throw new ArgumentOutOfRangeException("Amount has to be between 0 and 25000.", nameof(amount));
             }
 
             Balance -= amount;
@@ -130,12 +133,12 @@ namespace EncapsulationBankAccount.Entities
         /// Deposits the given amount of money into this account
         /// </summary>
         /// <param name="amount">The amount of money to deposit</param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void Deposit(decimal amount)
         {
             if(amount < 0 || amount > 25000)
             {
-                throw new ArgumentException("Amount has to be between 0 and 25000.", nameof(amount));
+                throw new ArgumentOutOfRangeException("Amount has to be between 0 and 25000.", nameof(amount));
             }
 
             Balance += amount;
@@ -177,11 +180,11 @@ namespace EncapsulationBankAccount.Entities
         {
             if(balance > 999999999.99m)
             {
-                return (false, "Balance is too big");
+                return (false, "Saldoen er større end det tilladte.");
             }
             if(balance < -999999999.99m)
             {
-                return (false, "Balance is too small");
+                return (false, "Saldoen er mindre end det tilladte.");
             }
 
             return (true, string.Empty);

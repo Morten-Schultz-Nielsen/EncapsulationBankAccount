@@ -107,7 +107,7 @@ namespace EncapsulationBankAccount.DataAccess
             }
             if(account.Id == 0)
             {
-                throw new ArgumentException(nameof(account), "Already existing account cannot be insrted");
+                throw new ArgumentException(nameof(account), "Already existing account cannot be inserted");
             }
 
             SqlCommand deleteCommand = new SqlCommand("DELETE FROM Accounts WHERE Id = @Id");
