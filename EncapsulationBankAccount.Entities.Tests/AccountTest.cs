@@ -23,13 +23,6 @@ namespace EncapsulationBankAccount.EntitiesTests
             Assert.AreEqual(50.10m, testAccount.Balance);
         }
 
-        [TestMethod]
-        public void TestId()
-        {
-            //Tests if id isn't allowed to be 0 or smaller
-            Assert.IsTrue(Account.ValidateId(1).Valid);
-            Assert.IsFalse(Account.ValidateId(0).Valid);
-        }
 
         [TestMethod]
         public void TestBalance()
@@ -39,14 +32,6 @@ namespace EncapsulationBankAccount.EntitiesTests
             Assert.IsFalse(Account.ValidateBalance(999999999.999m).Valid);
             Assert.IsTrue(Account.ValidateBalance(-999999999.99m).Valid);
             Assert.IsFalse(Account.ValidateBalance(-999999999.999m).Valid);
-        }
-
-        [TestMethod]
-        public void TestCreated()
-        {
-            //Tests if creation date cannot be in the future
-            Assert.IsTrue(Account.ValidateCreated(new DateTime(2019,8,12)).Valid);
-            Assert.IsFalse(Account.ValidateCreated(DateTime.Now + new TimeSpan(0,0,60)).Valid);
         }
 
         [TestMethod]
@@ -75,15 +60,6 @@ namespace EncapsulationBankAccount.EntitiesTests
             //test deposit twice
             testAccount.Deposit(10.10m);
             Assert.AreEqual(25010.10m, testAccount.Balance);
-        }
-
-        [TestMethod]
-        public void TestValidateTransaction()
-        {
-            Assert.IsTrue(Account.ValidateTransaction(0).Valid);
-            Assert.IsTrue(Account.ValidateTransaction(25000).Valid);
-            Assert.IsFalse(Account.ValidateTransaction(-0.01m).Valid);
-            Assert.IsFalse(Account.ValidateTransaction(25000.01m).Valid);
         }
 
         [TestMethod]

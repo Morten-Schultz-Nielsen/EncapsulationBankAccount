@@ -56,7 +56,7 @@ namespace EncapsulationBankAccount.Entities
 
             set
             {
-                (bool Valid, string ErrorMessage) = ValidateId(value);
+                (bool Valid, string ErrorMessage) = Validation.ValidateId(value);
                 if (!Valid)
                 {
                     throw new ArgumentOutOfRangeException(ErrorMessage, nameof(Id));
@@ -102,7 +102,7 @@ namespace EncapsulationBankAccount.Entities
 
             set
             {
-                (bool Valid, string ErrorMessage) = ValidateCreated(value);
+                (bool Valid, string ErrorMessage) = Validation.ValidateCreated(value);
                 if(!Valid)
                 {
                     throw new ArgumentException(ErrorMessage, nameof(Created));
@@ -121,7 +121,7 @@ namespace EncapsulationBankAccount.Entities
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void Withdraw(decimal amount)
         {
-            if(!ValidateTransaction(amount).Valid)
+            if(!Validation.ValidateTransaction(amount).Valid)
             {
                 throw new ArgumentOutOfRangeException("Amount has to be between 0 and 25000.", nameof(amount));
             }
@@ -136,7 +136,7 @@ namespace EncapsulationBankAccount.Entities
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public void Deposit(decimal amount)
         {
-            if(!ValidateTransaction(amount).Valid)
+            if(!Validation.ValidateTransaction(amount).Valid)
             {
                 throw new ArgumentOutOfRangeException("Amount has to be between 0 and 25000.", nameof(amount));
             }
@@ -157,21 +157,6 @@ namespace EncapsulationBankAccount.Entities
 
         #region static validation methods
         /// <summary>
-        /// Validates the given ID.
-        /// </summary>
-        /// <param name="id">the ID to validate</param>
-        /// <returns>A tuple with a bool which is true if valid and a string containing the error message if invalid</returns>
-        public static (bool Valid, string ErrorMessage) ValidateId(int id)
-        {
-            if(id <= 0)
-            {
-                return (false, "ID cannot be less than 0");
-            }
-
-            return (true, string.Empty);
-        }
-
-        /// <summary>
         /// Validates the given balance amount
         /// </summary>
         /// <param name="balance">The balance to validate</param>
@@ -185,34 +170,6 @@ namespace EncapsulationBankAccount.Entities
             if(balance < -999999999.99m)
             {
                 return (false, "Saldoen er mindre end det -999.999.999,99.");
-            }
-
-            return (true, string.Empty);
-        }
-
-        /// <summary>
-        /// Validates the given creation date
-        /// </summary>
-        /// <param name="created">The date to validate</param>
-        /// <returns>A tuple with a bool which is true if valid and a string containing the error message if invalid</returns>
-        public static (bool Valid, string ErrorMessage) ValidateCreated(DateTime created)
-        {
-            if(created.Ticks / 10000 > DateTime.Now.Ticks / 10000)
-            {
-                return (false, "Creation date cannot be in the future");
-            }
-            return (true, string.Empty);
-        }
-
-        public static (bool Valid, string ErrorMessage) ValidateTransaction(decimal amount)
-        {
-            if(amount > 25000)
-            {
-                return (false, "Transaktionen må ikke være større end 25000");
-            }
-            if(amount < 0)
-            {
-                return (false, "Transaktionen må ikke være mindre end 25000");
             }
 
             return (true, string.Empty);
