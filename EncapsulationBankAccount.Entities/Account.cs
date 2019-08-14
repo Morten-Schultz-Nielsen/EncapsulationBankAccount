@@ -197,7 +197,7 @@ namespace EncapsulationBankAccount.Entities
         /// <returns>A tuple with a bool which is true if valid and a string containing the error message if invalid</returns>
         public static (bool Valid, string ErrorMessage) ValidateCreated(DateTime created)
         {
-            if(created > DateTime.Now)
+            if(created.Ticks / 10000 > DateTime.Now.Ticks / 10000)
             {
                 return (false, "Creation date cannot be in the future");
             }

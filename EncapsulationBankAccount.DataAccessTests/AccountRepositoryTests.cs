@@ -23,7 +23,7 @@ namespace EncapsulationBankAccount.DataAccess.Tests
         {
             //test account gets an id after insert
             AccountRepository repository = new AccountRepository();
-            Account testAccount = new Account(10);
+            Account testAccount = new Account(10.50m);
             repository.Insert(testAccount);
             Assert.AreNotEqual(0, testAccount.Id);
 
@@ -40,21 +40,17 @@ namespace EncapsulationBankAccount.DataAccess.Tests
         [TestMethod()]
         public void UpdateTest()
         {
-            //updates an account and makes sure its updated
+            //insert account for later updating
             AccountRepository repository = new AccountRepository();
-            Account testAccount = new Account(1, 10, DateTime.Now);
-            repository.Update(testAccount);
-
-            Account updatedAccount = repository.Select(testAccount.Id);
-            Assert.AreEqual(testAccount.Created.Ticks, updatedAccount.Created.Ticks, 10000);
-            Assert.AreEqual(testAccount.Balance, updatedAccount.Balance);
+            Account testAccount = new Account(10);
+            repository.Insert(testAccount);
 
             //update the account again for the next test
             testAccount.Balance = 55;
             testAccount.Created = new DateTime(2010, 10, 5, 10, 12, 3);
             repository.Update(testAccount);
 
-            updatedAccount = repository.Select(testAccount.Id);
+            Account updatedAccount = repository.Select(testAccount.Id);
             Assert.AreEqual(testAccount.Created.Ticks, updatedAccount.Created.Ticks, 10000);
             Assert.AreEqual(testAccount.Balance, updatedAccount.Balance);
 

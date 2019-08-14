@@ -90,7 +90,7 @@ namespace EncapsulationBankAccount.DataAccess
             }
             if(account.Id == 0)
             {
-                throw new ArgumentException(nameof(account), "Already existing account cannot be insrted");
+                throw new ArgumentException(nameof(account), "Accounts not added to the database yet cannot be updated");
             }
 
             SqlCommand updateCommand = new SqlCommand("UPDATE Accounts set Balance = @Balance, Created = @Created WHERE Id = @Id");
