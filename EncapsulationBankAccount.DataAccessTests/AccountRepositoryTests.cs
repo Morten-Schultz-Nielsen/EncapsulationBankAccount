@@ -29,7 +29,7 @@ namespace EncapsulationBankAccount.DataAccess.Tests
 
             //make sure account was inserted correctly
             Account savedAccount = repository.Select(testAccount.Id);
-            Assert.AreEqual(testAccount.Created, savedAccount.Created);
+            Assert.AreEqual(testAccount.Created.Ticks, savedAccount.Created.Ticks, 10000);
             Assert.AreEqual(testAccount.Balance, savedAccount.Balance);
 
             //make sure you cant insert existing account or null
@@ -46,7 +46,7 @@ namespace EncapsulationBankAccount.DataAccess.Tests
             repository.Update(testAccount);
 
             Account updatedAccount = repository.Select(testAccount.Id);
-            Assert.AreEqual(testAccount.Created, updatedAccount.Created);
+            Assert.AreEqual(testAccount.Created.Ticks, updatedAccount.Created.Ticks, 10000);
             Assert.AreEqual(testAccount.Balance, updatedAccount.Balance);
 
             //update the account again for the next test
@@ -55,7 +55,7 @@ namespace EncapsulationBankAccount.DataAccess.Tests
             repository.Update(testAccount);
 
             updatedAccount = repository.Select(testAccount.Id);
-            Assert.AreEqual(testAccount.Created, updatedAccount.Created);
+            Assert.AreEqual(testAccount.Created.Ticks, updatedAccount.Created.Ticks, 10000);
             Assert.AreEqual(testAccount.Balance, updatedAccount.Balance);
 
             //make sure you cant update new accounts or null
@@ -89,7 +89,7 @@ namespace EncapsulationBankAccount.DataAccess.Tests
 
             //make sure select all outputs accounts correctly
             Account insertedAccount = newAccountsList.Single(a => a.Id == testAccount.Id);
-            Assert.AreEqual(testAccount.Created, insertedAccount.Created);
+            Assert.AreEqual(testAccount.Created.Ticks, insertedAccount.Created.Ticks, 10000);
             Assert.AreEqual(testAccount.Balance, insertedAccount.Balance);
         }
 
