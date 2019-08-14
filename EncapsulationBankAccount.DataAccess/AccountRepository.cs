@@ -10,45 +10,15 @@ using System.Data;
 namespace EncapsulationBankAccount.DataAccess
 {
     /// <summary>
-    /// An repository used for getting accounts from the database
+    /// A repository used for getting accounts from the database
     /// </summary>
-    public class AccountRepository
+    public class AccountRepository : RepositoryBase
     {
-        private readonly string connectionString;
-
         /// <summary>
         /// Initializes a new account repository with the correct connection string
         /// </summary>
-        public AccountRepository()
-        {
-            connectionString = GetConnectionString();
-        }
+        public AccountRepository() : base() { }
 
-        /// <summary>
-        /// executes the given sql command
-        /// </summary>
-        /// <param name="command">The sql command to execute</param>
-        /// <returns>The output from the sql command</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        private DataSet Execute(SqlCommand command)
-        {
-            if(command is null)
-            {
-                throw new ArgumentNullException(nameof(command) ,"command may not be null");
-            }
-
-            DataSet outputSet = new DataSet();
-            using(SqlConnection connection = new SqlConnection(connectionString))
-            {
-                command.Connection = connection;
-                using(SqlDataAdapter adapter = new SqlDataAdapter(command))
-                {
-                    adapter.Fill(outputSet);
-                }
-            }
-
-            return outputSet;
-        }
 
         /// <summary>
         /// Inserts the new <see cref="Account"/> into the database and gives it an ID
@@ -159,15 +129,6 @@ namespace EncapsulationBankAccount.DataAccess
             SqlCommand deleteCommand = new SqlCommand("DELETE FROM Accounts WHERE Id = @Id");
             deleteCommand.Parameters.AddWithValue("@Id", account.Id);
             _ = Execute(deleteCommand);
-        }
-
-        /// <summary>
-        /// Gets the connection string used for connecting to the database
-        /// </summary>
-        /// <returns>The connection string for the database</returns>
-        private static string GetConnectionString()
-        {
-            return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EncapsulationBankAccount;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         }
 
         /// <summary>
