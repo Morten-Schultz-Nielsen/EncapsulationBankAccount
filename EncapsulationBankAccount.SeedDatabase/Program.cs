@@ -12,6 +12,8 @@ namespace EncapsulationBankAccount.SeedDatabase
     {
         static void Main(string[] args)
         {
+            Console.ReadKey();
+
             Random random = new Random();
             AccountRepository repository = new AccountRepository();
             Account[] accounts = repository.Select().ToArray();

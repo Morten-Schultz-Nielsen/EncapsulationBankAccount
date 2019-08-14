@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncapsulationBankAccount.Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncapsulationBankAccount.SeedDatabase", "EncapsulationBankAccount.SeedDatabase\EncapsulationBankAccount.SeedDatabase.csproj", "{4DD55ACE-61F4-4D3A-A103-212B8EF764F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncapsulationBankAccount.UI", "EncapsulationBankAccount.UI\EncapsulationBankAccount.UI.csproj", "{C2267860-1E14-4762-A54B-2FDDC7F2C706}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4DD55ACE-61F4-4D3A-A103-212B8EF764F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DD55ACE-61F4-4D3A-A103-212B8EF764F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DD55ACE-61F4-4D3A-A103-212B8EF764F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2267860-1E14-4762-A54B-2FDDC7F2C706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2267860-1E14-4762-A54B-2FDDC7F2C706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2267860-1E14-4762-A54B-2FDDC7F2C706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2267860-1E14-4762-A54B-2FDDC7F2C706}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
