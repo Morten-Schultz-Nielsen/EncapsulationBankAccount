@@ -9,17 +9,34 @@ using System.Data;
 
 namespace EncapsulationBankAccount.DataAccess
 {
+    /// <summary>
+    /// An repository used for getting accounts from the database
+    /// </summary>
     public class AccountRepository
     {
         private readonly string connectionString;
 
+        /// <summary>
+        /// Initializes a new account repository with the correct connection string
+        /// </summary>
         public AccountRepository()
         {
             connectionString = GetConnectionString();
         }
 
+        /// <summary>
+        /// executes the given sql command
+        /// </summary>
+        /// <param name="command">The sql command to execute</param>
+        /// <returns>The output from the sql command</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         private DataSet Execute(SqlCommand command)
         {
+            if(command is null)
+            {
+                throw new ArgumentNullException(nameof(command) ,"command may not be null");
+            }
+
             DataSet outputSet = new DataSet();
             using(SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -33,6 +50,12 @@ namespace EncapsulationBankAccount.DataAccess
             return outputSet;
         }
 
+        /// <summary>
+        /// Inserts the new <see cref="Account"/> into the database and gives it an ID
+        /// </summary>
+        /// <param name="account">The <see cref="Account"/> to insert</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public void Insert(Account account)
         {
             if(account is null)
@@ -53,6 +76,12 @@ namespace EncapsulationBankAccount.DataAccess
             account.Id = output.Tables[0].Rows[0].Field<int>("Id");
         }
 
+        /// <summary>
+        /// Updates the given <see cref="Account"/> in the database
+        /// </summary>
+        /// <param name="account">The <see cref="Account"/> to update</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public void Update(Account account)
         {
             if(account is null)
@@ -71,6 +100,13 @@ namespace EncapsulationBankAccount.DataAccess
             _ = Execute(updateCommand);
         }
 
+        /// <summary>
+        /// Gets the <see cref="Account"/> with the given ID from the database
+        /// </summary>
+        /// <param name="id">The ID of the <see cref="Account"/> to find</param>
+        /// <returns>The <see cref="Account"/> from the database</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="KeyNotFoundException"></exception>
         public Account Select(int id)
         {
             if(id <= 0)
@@ -89,6 +125,10 @@ namespace EncapsulationBankAccount.DataAccess
             return AccountFromRow(output.Tables[0].Rows[0]);
         }
 
+        /// <summary>
+        /// Gets all <see cref="Account"/>s from the database
+        /// </summary>
+        /// <returns>All <see cref="Account"/>s from the database</returns>
         public IEnumerable<Account> Select()
         {
             SqlCommand selectCommand = new SqlCommand("SELECT * FROM Accounts");
@@ -99,6 +139,12 @@ namespace EncapsulationBankAccount.DataAccess
             }
         }
 
+        /// <summary>
+        /// Deletes the given <see cref="Account"/> from the database
+        /// </summary>
+        /// <param name="account">the <see cref="Account"/> to delete from the database</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public void Delete(Account account)
         {
             if(account is null)
@@ -115,11 +161,20 @@ namespace EncapsulationBankAccount.DataAccess
             _ = Execute(deleteCommand);
         }
 
+        /// <summary>
+        /// Gets the connection string used for connecting to the database
+        /// </summary>
+        /// <returns>The connection string for the database</returns>
         private static string GetConnectionString()
         {
             return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EncapsulationBankAccount;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         }
 
+        /// <summary>
+        /// Converts a <see cref="DataRow"/> into an <see cref="Account"/> object
+        /// </summary>
+        /// <param name="row">the <see cref="DataRow"/> to convert</param>
+        /// <returns>the <see cref="Account"/> object from the <see cref="DataRow"/></returns>
         private static Account AccountFromRow(DataRow row)
         {
             int id = row.Field<int>("Id");
