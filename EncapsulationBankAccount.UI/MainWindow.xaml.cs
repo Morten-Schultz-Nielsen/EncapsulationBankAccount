@@ -29,9 +29,10 @@ namespace EncapsulationBankAccount.UI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            AccountRepository repository = new AccountRepository();
+            //Load account information
+            AccountRepository accountRepository = new AccountRepository();
             TotalMoneyLabel.Content = "test";
-            Account[] accounts = repository.Select().ToArray();
+            Account[] accounts = accountRepository.Select().ToArray();
             decimal totalBalance = 0;
             foreach(Account account in accounts)
             {
@@ -40,6 +41,54 @@ namespace EncapsulationBankAccount.UI
             TotalMoneyLabel.Content = "Penge i alt: " + Math.Round(totalBalance, 2).ToString("c");
             NumberOfBankAccountsLabel.Content = "Konti i alt: " + accounts.Length;
             AvaregeMoneyLabel.Content = "Penge per konti i gennemsnit: " + Math.Round(totalBalance / accounts.Length, 2).ToString("c");
+
+            //transactions
+            LoadAllTransactions();
+        }
+
+        private void ShowTransactions(Transaction[] transactions)
+        {
+            TransactionsCountLabel.Content = "Transaktioner: " + transactions.Length;
+            TransactionsDataGrid.ItemsSource = transactions;
+        }
+
+        private void FindTransactions_Click(object sender, RoutedEventArgs e)
+        {
+            if(TransactionsFromDatePicker.SelectedDate is null)
+            {
+                MessageBox.Show("Vælg venligst en starts dato");
+                return;
+            }
+            if(TransactionsToDatePicker.SelectedDate is null)
+            {
+                TransactionsToDatePicker.SelectedDate = DateTime.Now;
+            }
+
+            DateTime fromDate = TransactionsFromDatePicker.SelectedDate.Value + TransactionsFromTimeSelector.Time;
+            DateTime toDate = TransactionsToDatePicker.SelectedDate.Value + TransactionsToTimeSelector.Time;
+
+            if(fromDate > toDate)
+            {
+                MessageBox.Show("Datoen \"fra\" skal være mindre end \"til\"");
+                return;
+            }
+
+            TransactionRepository transactionRepository = new TransactionRepository();
+            ShowTransactions(transactionRepository.GetTransactionLogs(fromDate, toDate).ToArray());
+        }
+
+        private void GetAllTransactions_Click(object sender, RoutedEventArgs e)
+        {
+            TransactionsFromDatePicker.SelectedDate = null;
+            TransactionsToDatePicker.SelectedDate = null;
+
+            LoadAllTransactions();
+        }
+
+        private void LoadAllTransactions()
+        {
+            TransactionRepository transactionRepository = new TransactionRepository();
+            ShowTransactions(transactionRepository.GetTransactionLogs().ToArray());
         }
     }
 }

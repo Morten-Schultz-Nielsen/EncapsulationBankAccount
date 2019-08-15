@@ -8,12 +8,36 @@
         Title="MainWindow" Height="450" Width="800"
         Loaded="Window_Loaded">
   <Grid>
-    <GroupBox Header="Bank Information">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="1*"></ColumnDefinition>
+      <ColumnDefinition Width="2*"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <GroupBox Header="Bank Information" Grid.Column="0">
       <StackPanel>
         <Label x:Name="TotalMoneyLabel">Penge i alt: ...udregner...</Label>
         <Label x:Name="NumberOfBankAccountsLabel">Konti i alt: ...udregner...</Label>
         <Label x:Name="AvaregeMoneyLabel">Penge per konti i gennemsnit: ...udregner...</Label>
       </StackPanel>
+    </GroupBox>
+    <GroupBox Header="Transaktioner" Grid.Column="1">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="1*"></ColumnDefinition>
+          <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+          <Label x:Name="TransactionsCountLabel">Transaktioner: ...udregner...</Label>
+          <Label Margin="0 30 0 0">Transaktioner fra:</Label>
+          <DatePicker Margin="5" x:Name="TransactionsFromDatePicker"></DatePicker>
+          <local:TimePicker x:Name="TransactionsFromTimeSelector"></local:TimePicker>
+          <Label Margin="0 5 0 0">Transaktioner til:</Label>
+          <DatePicker Margin="5" x:Name="TransactionsToDatePicker"></DatePicker>
+          <local:TimePicker x:Name="TransactionsToTimeSelector"></local:TimePicker>
+          <Button Margin="5" Click="FindTransactions_Click">Find</Button>
+          <Button Margin="5" Click="GetAllTransactions_Click">Find alle transaktioner</Button>
+        </StackPanel>
+        <DataGrid x:Name="TransactionsDataGrid" Grid.Column="1" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True"></DataGrid>
+      </Grid>
     </GroupBox>
   </Grid>
 </Window>
