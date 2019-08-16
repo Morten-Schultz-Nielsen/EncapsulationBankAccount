@@ -31,6 +31,12 @@ namespace EncapsulationBankAccount.UI
             {
                 return new TimeSpan(int.Parse(Hours.Text), int.Parse(Minutes.Text), int.Parse(Seconds.Text));
             }
+            set
+            {
+                Hours.Text = value.Hours.ToString();
+                Minutes.Text = value.Minutes.ToString();
+                Seconds.Text = value.Seconds.ToString();
+            }
         }
 
         private void Number_Changed(object sender, TextChangedEventArgs e)

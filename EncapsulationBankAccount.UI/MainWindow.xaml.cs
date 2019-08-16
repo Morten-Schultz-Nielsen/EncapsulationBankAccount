@@ -43,6 +43,7 @@ namespace EncapsulationBankAccount.UI
             AvaregeMoneyLabel.Content = "Penge per konti i gennemsnit: " + Math.Round(totalBalance / accounts.Length, 2).ToString("c");
 
             //transactions
+            TransactionsToTimeSelector.Time = new TimeSpan(23, 59, 59);
             LoadAllTransactions();
         }
 
@@ -81,6 +82,8 @@ namespace EncapsulationBankAccount.UI
         {
             TransactionsFromDatePicker.SelectedDate = null;
             TransactionsToDatePicker.SelectedDate = null;
+            TransactionsFromTimeSelector.Time = new TimeSpan();
+            TransactionsToTimeSelector.Time = new TimeSpan(23,59,59);
 
             LoadAllTransactions();
         }
